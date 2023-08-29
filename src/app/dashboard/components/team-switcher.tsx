@@ -9,14 +9,33 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandSeparator,
 } from '@/components/ui/command';
-import { Dialog } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { cn } from '@/lib/utils';
+import { PlusCircledIcon } from '@radix-ui/react-icons';
 import { ArrowUpDownIcon, CheckIcon } from 'lucide-react';
 import React, { useState } from 'react';
 
@@ -81,6 +100,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
           </Button>
         </PopoverTrigger>
 
+        {/* Popover Content */}
         <PopoverContent className="w-[200px] p-0">
           <Command>
             <CommandList>
@@ -120,9 +140,75 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
                 </CommandGroup>
               ))}
             </CommandList>
+
+            <CommandSeparator />
+
+            {/* Create a Team */}
+            <CommandList>
+              <CommandGroup>
+                <DialogTrigger asChild>
+                  <CommandItem
+                    onSelect={() => {
+                      setOpen(false);
+                      setShowNewTeamDialog(true);
+                    }}
+                  >
+                    <PlusCircledIcon className="mr-2 h-5 w-5" />
+                    새로운 팀 만들기
+                  </CommandItem>
+                </DialogTrigger>
+              </CommandGroup>
+            </CommandList>
           </Command>
         </PopoverContent>
       </Popover>
+
+      {/* Create a Team Dialog */}
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Create Team</DialogTitle>
+          <DialogDescription>
+            Add a new team to manage products and customers
+          </DialogDescription>
+        </DialogHeader>
+        <div>
+          <div className="space-y-4 py-2 pb-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Team name</Label>
+              <Input id="name" placeholder="Acme Inc." />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="plan">Subscription plan</Label>
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a plan" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="free">
+                    <span className="font-medium">Free</span> -{' '}
+                    <span className="text-muted-foreground">
+                      Trial for two weeks
+                    </span>
+                  </SelectItem>
+                  <SelectItem value="pro">
+                    <span className="font-medium">Pro</span> -{' '}
+                    <span className="text-muted-foreground">
+                      $9/month per user
+                    </span>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+
+        <DialogFooter>
+          <Button variant="outline" onClick={() => setShowNewTeamDialog(false)}>
+            Cancel
+          </Button>
+          <Button type="submit">Continue</Button>
+        </DialogFooter>
+      </DialogContent>
     </Dialog>
   );
 }
