@@ -15,10 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" suppressHydrationWarning>
-      <body className="max-w-6xl">
+      <body className="">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
-          {children}
+          <main className="mt-24 flex flex-col max-w-6xl mx-auto">
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
