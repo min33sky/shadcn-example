@@ -13,6 +13,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import Overview from './components/overview';
+import RecentSales from './components/recent-sales';
 
 export default function DashboardPage() {
   return (
@@ -150,21 +152,25 @@ export default function DashboardPage() {
             </div>
 
             {/* Chart 들어갈자리 */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-              <Card className="col-span-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
+              <Card className="lg:col-span-4">
                 <CardHeader>
                   <CardTitle>Overview</CardTitle>
                 </CardHeader>
-                <CardContent className="pl-2">{/* <Overview /> */}</CardContent>
+                <CardContent className="pl-2">
+                  <Overview />
+                </CardContent>
               </Card>
-              <Card className="col-span-3">
+              <Card className="lg:col-span-3">
                 <CardHeader>
                   <CardTitle>Recent Sales</CardTitle>
                   <CardDescription>
                     You made 265 sales this month.
                   </CardDescription>
                 </CardHeader>
-                <CardContent>{/* <RecentSales /> */}</CardContent>
+                <CardContent>
+                  <RecentSales />
+                </CardContent>
               </Card>
             </div>
           </TabsContent>
